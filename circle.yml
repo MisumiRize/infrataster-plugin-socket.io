@@ -1,0 +1,14 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - docker build --rm -t socket_io .
+    - gem install bundler
+
+test:
+  pre:
+    - docker run -d -p 28080:8080 socket_io
+  override:
+    - bundle exec rake spec
